@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Score Meter</title>
+    <style>
+        .meter {
+            position: relative;
+            width: 200px;
+            height: 100px;
+            margin: 50px auto;
+        }
+
+        .colors {
+            width: 100%;
+            height: 100%;
+            background: conic-gradient(
+                darkgreen 0% 20%, 
+                green 20% 40%, 
+                yellow 40% 60%, 
+                orange 60% 80%, 
+                red 80% 100%
+            );
+            border-radius: 100px 100px 0 0;
+            position: relative;
+        }
+
+        .pointer {
+            width: 4px;
+            height: 80px;
+            background-color: white;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform-origin: bottom center;
+            transform: rotate(-90deg);
+            transition: transform 0.5s ease;
+        }
+
+        .slider-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .slider {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="meter">
+        <div class="colors"></div>
+        <div id="pointer" class="pointer"></div>
+    </div>
+
+    <div class="slider-container">
+        <input id="slider" class="slider" type="range" min="0" max="100" value="0">
+    </div>
+
+    <script>
+        const pointer = document.getElementById('pointer');
+        const slider = document.getElementById('slider');
+
+        slider.addEventListener('input', function() {
+            const value = this.value;
+            const angle = (value / 100) * 180 - 90; // Convert to an angle between -90 and 90 degrees
+            pointer.style.transform = `rotate(${angle}deg)`;
+        });
+    </script>
+</body>
+</html>
